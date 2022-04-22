@@ -3,14 +3,18 @@
 To watch for changes in sass/custom.scss and have it build instantly use:
 
 ```bash
-yarn run dev-start
+yarn run css-build
 ```
 
-First, run the development server:
+To watch for changes in sass file and automatically compile it to css:
 
 ```bash
-npm run dev
-# or
+yarn run css-start
+```
+
+Then, run the development server:
+
+```bash
 yarn dev
 ```
 
