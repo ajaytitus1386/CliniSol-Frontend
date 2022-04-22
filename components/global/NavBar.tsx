@@ -4,10 +4,6 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        {/* //TODO: Logo goes here */}
-        <a className="navbar-item" href="/">
-          CliniSol
-        </a>
         {/* Mobile Visible Bar */}
         <a
           role="button"
@@ -67,6 +63,17 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .navbar {
+            position: absolute;
+            width: 80%;
+            left: 20%;
+            top: 0px;
+            background: #F7FAFD;
+            height: 4rem;
+        }
+        `}</style>
+
     </nav>
   );
 };
