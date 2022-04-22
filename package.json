@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "cors": "^2.8.5",
-    "framer-motion": "^6.2.9",
+    "moment": "^2.29.3",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
