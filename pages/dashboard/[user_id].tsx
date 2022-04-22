@@ -1,4 +1,5 @@
 import React from "react";
+import AppointmentsTable from "../../components/appointment/AppointmentsTable";
 
 const Dashboard = () => {
   const userName = "Nishal";
@@ -171,6 +172,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <AppointmentsTable />
 
       <style jsx>{`
         .dashboard-overview {
