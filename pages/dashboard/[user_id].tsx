@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 
 const Dashboard = () => {
   const userName = "Nishal";
@@ -31,14 +32,11 @@ const Dashboard = () => {
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
-                <span>
-                  View <a href="#">Appointments</a>
-                </span>
-              </p>
-              <p className="card-footer-item">
-                <span>
-                  Schedule <a href="#">Appointment</a>
-                </span>
+                <Link href="/appointments/manageAppointment">
+                  <span>
+                    Manage <a href="#">Appointments</a>
+                  </span>
+                </Link>
               </p>
             </footer>
           </div>
@@ -59,14 +57,18 @@ const Dashboard = () => {
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
-                <span>
-                  View <a href="#">Patient Records</a>
-                </span>
+                <Link href="/patients/patientRecords">
+                  <span>
+                    View <a href="#">Patient Records</a>
+                  </span>
+                </Link>
               </p>
               <p className="card-footer-item">
-                <span>
-                  Create <a href="#">New Patient</a>
-                </span>
+                <Link href="/patients/addPatient">
+                  <span>
+                    Create <a href="#">New Patient</a>
+                  </span>
+                </Link>
               </p>
             </footer>
           </div>
@@ -87,14 +89,11 @@ const Dashboard = () => {
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
-                <span>
-                  View <a href="#">Doctors</a>
-                </span>
-              </p>
-              <p className="card-footer-item">
-                <span>
-                  Add <a href="#">New Doctor</a>
-                </span>
+                <Link href="/doctors/manageDoctor">
+                  <span>
+                    Manage<a href="#"> Doctors</a>
+                  </span>
+                </Link>
               </p>
             </footer>
           </div>
@@ -115,14 +114,18 @@ const Dashboard = () => {
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
-                <span>
-                  Generate <a href="#">Backup</a>
-                </span>
+                <Link href="/backup/generateBackup">
+                  <span>
+                    Generate <a href="#">Backup</a>
+                  </span>
+                </Link>
               </p>
               <p className="card-footer-item">
-                <span>
-                  Manage <a href="#">Admins</a>
-                </span>
+                <Link href="/staff/manageStaff">
+                  <span>
+                    Manage <a href="#">Staff</a>
+                  </span>
+                </Link>
               </p>
             </footer>
           </div>
