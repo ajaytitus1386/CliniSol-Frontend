@@ -31,7 +31,9 @@ const NavBar = () => {
               </span>
             </p>
           </div>
-
+        </div>
+        {/* Ending Message */}
+        <div className="navbar-end">
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">
               <span className="material-icons">translate</span>
@@ -40,12 +42,10 @@ const NavBar = () => {
 
             <div className="navbar-dropdown">
               <div className="navbar-item">English (US)</div>
-              <div className="navbar-item">English (IN)</div>
+              <div className="navbar-item">Hindi (IN)</div>
+              <div className="navbar-item">Tamil (IN)</div>
             </div>
           </div>
-        </div>
-        {/* Ending Message */}
-        <div className="navbar-end">
           <div className="navbar-item is-flex-direction-column">
             {/* Message of the day */}
             <div className="icon-text">
@@ -71,6 +71,10 @@ const NavBar = () => {
             top: 0px;
             background: #F7FAFD;
             height: 4rem;
+        }
+
+        .navbar-start .navbar-item p{
+          width: 640px;
         }
         `}</style>
 
