@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import Dashboard from "./dashboard/[user_id]";
+import Dashboard from "./appointments";
 
 const Home: NextPage = () => {
   const router = useRouter();
