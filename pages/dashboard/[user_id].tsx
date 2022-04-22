@@ -1,5 +1,4 @@
 import React from "react";
-import AppointmentsTable from "../../components/appointment/AppointmentsTable";
 
 const Dashboard = () => {
   const userName = "Nishal";
@@ -173,8 +172,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <AppointmentsTable />
-
       <style jsx>{`
         .dashboard-overview {
           background: #EDF1F5;
@@ -201,6 +198,7 @@ const Dashboard = () => {
         .card-content { 
           padding-top: 3rem;
           flex-grow: 1;
+          text-align: center;
         }
 
         .subtitle {

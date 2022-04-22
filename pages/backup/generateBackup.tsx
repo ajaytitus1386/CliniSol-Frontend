@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = () => {
+const Patient = () => {
   const userName = "User";
   const notifications = "No New Notifications";
 
@@ -47,4 +47,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Patient;
