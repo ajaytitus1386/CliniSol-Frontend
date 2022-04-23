@@ -1,10 +1,10 @@
 export interface Patient {
   id: number;
   name: String;
-  dob: number;
+  dob: String;
   sex: String;
   phone: String;
-  altPhone: String;
+  altphone: String;
   height: number;
   weight: number;
   bp: String;
