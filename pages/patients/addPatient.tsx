@@ -35,7 +35,7 @@ const AddPatient = () => {
 
   return (
     <div className="container box">
-      <h1 className="is-size-2 has-text-weight-bold is-grey-dark mb-6 has-text-centered">Add New Patient Data</h1>
+      <h1 className="is-size-2 has-text-weight-bold is-grey-dark mb-6 has-text-centered">Add New Patient's Data</h1>
       <form onSubmit={addPatientToDB}>
         <div className="field is-horizontal">
           <div className="field-label is-normal">
