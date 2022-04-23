@@ -3,7 +3,7 @@ import { Doctor } from "../../types/doctor";
 
 function DoctorRow(doctor: Doctor) {
   return (
-    <div className="columns">
+    <div className="columns" key={doctor.id}>
       <div className="column">{doctor.id}</div>
       <div className="column">{doctor.name}</div>
       <div className="column">{doctor.phone}</div>
@@ -73,8 +73,6 @@ const ManageDoctor = () => {
     data.sort((a: any,b: any) => a.id - b.id);
 
     setDoctorsDataDB(data);
-
-    return [0, 1, 2, 3, 45, 7]
   }
 
   getDoctorsFromDB();
