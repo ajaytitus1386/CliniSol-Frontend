@@ -1,50 +1,56 @@
 import React from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { text } from "stream/consumers";
 
-const Patient = () => {
-  const userName = "User";
-  const notifications = "No New Notifications";
+const Support = () => {
 
   return (
     <div className="container">
       <h1 className="is-size-2 has-text-weight-bold is-grey-dark">
-        Welcome, {userName}
+        Facing problems? Need help?
       </h1>
-      <h2 className="is-size-6 is-grey-light">{notifications}</h2>
-      <div className="tile is-ancestor">
+      <div className="tile is-ancestor mt-6">
         <div className="tile">
           <div className="tile is-parent is-vertical">
             <div className="tile is-child">
               {/* Appointment Table */}
-              <div className="card">
-                <div className="card-content">
-                  <h3 className="is-size-4 is-grey-dark has-text-weight-bold">
-                    Appointments
+              <div className="card" style={{ textAlign: 'center' }} >
+                <br />
+                <Image
+                  src="https://picsum.photos/id/192/400/400.jpg"
+                  alt="Picture of the user"
+                  width="240px"
+                  height="240px"
+                  style={{ borderRadius: '50%', margin: '1rem auto' }}
+                />
+                <br />
+                <div className="card-content" style={{ textAlign: 'center' }}>
+                  <h3 className="is-size-2 is-grey-dark has-text-weight-bold">
+                    Contact Us
                   </h3>
-                  <div className="columns">
-                    <div className="column">Patient Name</div>
-                    <div className="column">Patient ID</div>
-                    <div className="column">Date</div>
-                    <div className="column">Reason</div>
+                  <div className="columns mt-5">
+                    <div className="column is-size-5">Raaghav Kulkarni Titus Enterprises</div>
+                    <div className="column is-size-5">+91 987-898-6756</div>
+                    <div className="column is-size-5">+91 987-898-5700</div>
+                    <div className="column is-size-5">support@rkt.enterprises</div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="tile is-child">
-              {/* Appointment Card */}
-              <h3 className="is-size-6 is-grey-dark has-text-weight-bold">
-                Current Appointments
-              </h3>
-              <div className="card is-4">
-                <div className="card-content">
-                  <div className="content">Acebutol 400mg</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .container {
+            background: #EDF1F5;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+      `}</style>
     </div>
   );
 };
 
-export default Patient;
+export default Support;
