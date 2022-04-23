@@ -1,6 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { Patient } from "../../types/patient";
+
+function PatientRow(patient: Patient) {
+  return (
+    <div className="columns" key={patient.id}>
+      <div className="column">{patient.id}</div>
+      <div className="column">{patient.name}</div>
+      <div className="column">{patient.phone}</div>
+      <div className="column">{patient.email}</div>
+      <div className="column">{patient.sex}</div>
+      <div className="column">{patient.dob}</div>
+      <style jsx>
+        {`
+          .columns {
+            border-bottom: rgba(0, 0, 0, 0.15) solid 1px;
+          }
+          .columns:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+          .columns:nth-last-child(1) {
+            border-bottom: none;
+          }
+        `}
+      </style>
+    </div>
+  );
+}
 
 const AddPatient = () => {
+  const [allPatientsDataDB, setAllPatientsDataDB] = useState([]);
+
   const addPatientToDB = async (event: any) => {
     event.preventDefault();
 
@@ -32,6 +61,31 @@ const AddPatient = () => {
 
     alert(res.statusText);
   }
+
+  const getPatientsFromDB = async () => {
+    try {
+      const res = await fetch(
+        'http://home.navboi.tech/api/v1/patient/all',
+        {
+          headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGFmZl9pZCI6MSwiaWF0IjoxNjUwNzA3MzI0LCJleHAiOjE2NTMyOTkzMjR9.HhpZL5Jp7Qi0JNQHXTPanOMA92gVc4HFSMoB8tTo7y4',
+            'Content-Type': 'application/json'
+          },
+          method: 'GET'
+        }
+      )
+  
+      const data = await res.json();
+      data.sort((a: any, b: any) => a.id - b.id);
+  
+      setAllPatientsDataDB(data);
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+
+  getPatientsFromDB();
 
   return (
     <div className="container box">
@@ -176,15 +230,27 @@ const AddPatient = () => {
         </div>
       </form>
 
+      <h1 className="is-size-2 has-text-weight-bold is-grey-dark my-6 has-text-centered">All Patients</h1>
+      <div className="box mt-4 is-flex-direction-row">
+        {/* Table Head */}
+        <div className="columns">
+          <div className="column has-text-weight-bold is-size-5">Patient.Id</div>
+          <div className="column has-text-weight-bold is-size-5">Patient Name</div>
+          <div className="column has-text-weight-bold is-size-5">Personal Contact</div>
+          <div className="column has-text-weight-bold is-size-5">Email</div>
+          <div className="column has-text-weight-bold is-size-5">Gender</div>
+          <div className="column has-text-weight-bold is-size-5">DOB</div>
+        </div>
+        {allPatientsDataDB.map((patient: any) => {
+          return PatientRow(patient);
+        })}
+      </div>
+
       <style jsx>{`
         .container {
             background: #EDF1F5;
             padding: 2rem;
             border-radius: 1rem;
-        }
-
-        .navbar-start .navbar-item p{
-          width: 640px;
         }
 
         .dob-picker {
@@ -197,6 +263,26 @@ const AddPatient = () => {
           border-radius: 4px;
           color: #363636;
           border: 1px solid transparent;
+        }
+
+        .row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-items: center;
+        }
+        
+        .box {
+          border: 1px solid rgba(0, 0, 0, 0.25);
+        }
+
+        .divider {
+          width: 100%;
+          margin-right: 1rem;
+          margin-bottom: 1rem;
+          height: 1px;
+          background: rgba(0, 0, 0, 0.15);
+          border-radius: 50%;
         }
         `}</style>
     </div>

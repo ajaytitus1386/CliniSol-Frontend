@@ -4,7 +4,7 @@ export interface Patient {
   dob: String;
   sex: String;
   phone: String;
-  altphone: String;
+  email: String;
   height: number;
   weight: number;
   bp: String;
