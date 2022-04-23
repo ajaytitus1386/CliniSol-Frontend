@@ -1,4 +1,6 @@
+import moment from "moment";
 import React, { useState } from "react";
+import { createAppointment } from "../../services/appointment/createAppointment";
 
 const CreateAppointment = () => {
   const [doctorName, setDoctorName] = useState("No Doctor Selected");
@@ -15,7 +17,16 @@ const CreateAppointment = () => {
 
   function findPatient(patientID: String) {}
 
-  function submitAppointment() {}
+  async function submitAppointment() {
+    const durationInSec = String(duration * 60);
+    const startTimeInUTC = moment(startTime).format();
+    await createAppointment({
+      start: startTimeInUTC,
+      duration_s: durationInSec,
+      doctor_id: Number(doctorID),
+      patient_id: Number(patientID),
+    });
+  }
 
   return (
     <div className="container box">
