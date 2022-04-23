@@ -65,7 +65,7 @@ const NavBar = () => {
       </div>
       <style jsx>{`
         .navbar {
-            position: absolute;
+            position: fixed;
             width: 80%;
             left: 20%;
             top: 0px;

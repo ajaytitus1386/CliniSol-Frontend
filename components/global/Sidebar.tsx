@@ -31,7 +31,7 @@ const Sidebar = () => {
                 </div>
                 <span className="icon is-right sidebar-user-logout">
                     <Link href={'/logout'}>
-                    <a className="material-icons">logout</a>
+                        <a className="material-icons">logout</a>
                     </Link>
                 </span>
             </div>
@@ -147,11 +147,12 @@ const Sidebar = () => {
                 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
                 .menu {
-                    position: absolute;
+                    position: fixed;
                     width: 20%;
                     left: 0px;
                     top: 0px;
-                    height: 100vh;
+                    height: 100%;
+                    overflow-y: auto;
                     background: #283342;
                     font-family: 'Poppins', sans-serif;
                 }
@@ -240,8 +241,6 @@ const Sidebar = () => {
                     width: 20%;
                     left: 0px;
                     top: 0px;
-                    bottom: 660px;
-
                     background: #1D242E;
                 }
             `}</style>
