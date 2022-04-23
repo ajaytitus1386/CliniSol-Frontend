@@ -5,6 +5,7 @@ export interface Appointment {
   id: number;
   startTime: number;
   duration: number;
+  prescription_images: String[];
   doctor: Doctor;
   patient: Patient;
 }
