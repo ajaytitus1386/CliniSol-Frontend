@@ -1,8 +1,12 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getAllAppointments } from "../../services/appointment/getAllApointments";
+import { getAppointmentsByDate } from "../../services/appointment/getAppointmentsByDate";
 import { Appointment } from "../../types/appointment";
+import AppointmentRow from "./AppointmentRow";
 
 function AppointmentsTable() {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [appointmentStartNum, setAppointmentStartNum] = useState(1);
   const appointmentsPerPageCount = 8;
   let appointmentsEndNum = appointmentStartNum + appointmentsPerPageCount - 1;
@@ -18,56 +22,28 @@ function AppointmentsTable() {
     if (newStartNum > 0) setAppointmentStartNum(newStartNum);
   }
 
-  const appointments: Appointment[] = [
-    {
-      id: 1,
-      startTime: Date.now(),
-      doctor: {
-        id: 1,
-        address: "Rich Road",
-        altPhone: "0123456789",
-        name: "Smith John",
-        phone: "1234567890",
-      },
-      patient: {
-        id: 2,
-        name: "Mike Hunt",
-        dob: Date.parse("01-01-1995"),
-        sex: "Female",
-        phone: "0123456789",
-        altPhone: "1234567890",
-        height: 140,
-        weight: 77,
-        bp: "113/80 mm Hg",
-        address: "Tough Town",
-      },
-      duration: 1,
-    },
-    {
-      id: 2,
-      startTime: Date.now(),
-      doctor: {
-        id: 1,
-        address: "Rich Road",
-        altPhone: "0123456789",
-        name: "Smith John",
-        phone: "1234567890",
-      },
-      patient: {
-        id: 3,
-        name: "Candice D",
-        dob: Date.parse("01-01-1995"),
-        sex: "Female",
-        phone: "0123456789",
-        altPhone: "1234567890",
-        height: 140,
-        weight: 77,
-        bp: "113/80 mm Hg",
-        address: "Tough Town",
-      },
-      duration: 1,
-    },
-  ];
+  async function fetchAppointmentsToday() {
+    try {
+      const response = await getAppointmentsByDate({
+        date: moment(Date.now()).format(),
+      });
+
+      setAppointments(response);
+    } catch (error) {}
+  }
+
+  async function fetchAllAppointments() {
+    try {
+      const response = await getAllAppointments();
+
+      setAppointments(response);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    fetchAllAppointments();
+  }, []);
+
   return (
     <div className="container">
       <div className="columns is-vcentered">
@@ -115,7 +91,9 @@ function AppointmentsTable() {
         <div className="divider"></div>
 
         {appointments.map((appointment) => {
-          return AppointmentRow(appointment);
+          return (
+            <AppointmentRow key={appointment.id} appointment={appointment} />
+          );
         })}
       </div>
       <div className="columns">
@@ -162,34 +140,6 @@ function AppointmentsTable() {
             height: 1px;
             background: rgba(0, 0, 0, 0.15);
             border-radius: 50%;
-          }
-        `}
-      </style>
-    </div>
-  );
-}
-
-function AppointmentRow(appointment: Appointment) {
-  const formattedDate = moment(appointment.startTime).format("MMM Do YYYY");
-  const formattedTime = moment(appointment.startTime).format("h:MM a");
-  return (
-    <div className="columns">
-      <div className="column">{appointment.id}</div>
-      <div className="column">{appointment.patient.name}</div>
-      <div className="column">{appointment.patient.id}</div>
-      <div className="column">{formattedDate}</div>
-      <div className="column">{formattedTime}</div>
-      <div className="column">{appointment.duration}</div>
-      <style jsx>
-        {`
-          .columns {
-            border-bottom: rgba(0, 0, 0, 0.15) solid 1px;
-          }
-          .columns:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-          }
-          .columns:nth-last-child(1) {
-            border-bottom: none;
           }
         `}
       </style>
