@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getAllAppointments } from "../../services/appointment/getAllApointments";
 import { getAppointmentsByDate } from "../../services/appointment/getAppointmentsByDate";
@@ -51,7 +52,7 @@ function AppointmentsTable() {
           <h1 className="title is-3">
             Current Appointments ({appointments.length})
           </h1>
-          <div className="control has-icons-right">
+          {/* <div className="control has-icons-right">
             <input
               className="input is-primary"
               type={"text"}
@@ -60,7 +61,7 @@ function AppointmentsTable() {
             <span className="icon is-right">
               <span className="material-icons">search</span>
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="column">
           <div className="is-pulled-right">
@@ -68,7 +69,9 @@ function AppointmentsTable() {
               <span className="icon is-right">
                 <span className="material-icons">add</span>
               </span>
-              <p>Add New Appointment</p>
+              <Link href={"/appointments/manageAppointment"}>
+                <p className="">Add New Appointment</p>
+              </Link>
             </button>
           </div>
         </div>
@@ -96,7 +99,7 @@ function AppointmentsTable() {
           );
         })}
       </div>
-      <div className="columns">
+      {/* <div className="columns">
         <div className="column is-four-fifths heading">
           Showing {appointmentStartNum} to{" "}
           {appointmentsPerPageCount < appointments.length
@@ -111,7 +114,7 @@ function AppointmentsTable() {
             <span className="material-icons">chevron_right</span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <style jsx>
         {`
