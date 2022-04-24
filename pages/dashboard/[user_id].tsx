@@ -1,18 +1,49 @@
-import React from "react";
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { Appointment } from "../../types/appointment";
+import { getAllPatients } from "../../services/patient/getAllPatients";
+import { getAllDoctors } from "../../services/doctor/getAllDoctors";
+import { getAllAppointments } from "../../services/appointment/getAllApointments";
+import AppointmentsTable from "../../components/appointment/AppointmentsTable";
 
 const Dashboard = () => {
   const userName = "Nishal";
   const notifications = "No New Notifications";
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [patientsCount, setPatientsCount] = useState(0);
+  const [doctorCount, setDoctorCount] = useState(0);
+
+  async function fetchPatientCount() {
+    const patients = await getAllPatients();
+    setPatientsCount(patients.length);
+  }
+  async function fetchDoctorCount() {
+    const doctors = await getAllDoctors();
+    setDoctorCount(doctors.length);
+  }
+
+  async function fetchAppointments() {
+    const appointments = await getAllAppointments();
+    setAppointments(appointments);
+  }
+
+  useEffect(() => {
+    fetchPatientCount();
+    fetchDoctorCount();
+    fetchAppointments();
+  }, []);
 
   return (
     <div className="container">
       <div className="dashboard-overview">
-
         <h1 className="is-size-2 has-text-weight-bold is-grey-dark">
           Dashboard for {userName}
-          <h2 className="is-size-6 is-grey-light">A quick overview of your healthcare system</h2>
-          <h2 className="notif-text is-size-6 is-grey-light">{notifications}</h2>
+          <h2 className="is-size-6 is-grey-light">
+            A quick overview of your healthcare system
+          </h2>
+          <h2 className="notif-text is-size-6 is-grey-light">
+            {notifications}
+          </h2>
         </h1>
 
         <div className="overview-cards">
@@ -20,15 +51,13 @@ const Dashboard = () => {
             <div className="card-content">
               <p className="title">
                 <h1 className="overview-card-icon">
-                  <span className="icon is-right" style={{ color: '#01A768' }}>
+                  <span className="icon is-right" style={{ color: "#01A768" }}>
                     <span className="material-icons">calendar_month</span>
                   </span>
                 </h1>
-                Appointments
+                Appointment
               </p>
-              <p className="subtitle">
-                Total Active: 123
-              </p>
+              <p className="subtitle">Total Active: {appointments.length}</p>
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
@@ -45,15 +74,13 @@ const Dashboard = () => {
             <div className="card-content">
               <p className="title">
                 <h1 className="overview-card-icon">
-                  <span className="icon is-right" style={{ color: '#FED600' }}>
+                  <span className="icon is-right" style={{ color: "#FED600" }}>
                     <span className="material-icons">personal_injury</span>
                   </span>
                 </h1>
                 Patients
               </p>
-              <p className="subtitle">
-                Total: 463
-              </p>
+              <p className="subtitle">Total: {patientsCount}</p>
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
@@ -77,15 +104,13 @@ const Dashboard = () => {
             <div className="card-content">
               <p className="title">
                 <h1 className="overview-card-icon">
-                  <span className="icon is-right" style={{ color: '#03A9F5' }}>
+                  <span className="icon is-right" style={{ color: "#03A9F5" }}>
                     <span className="material-icons">person_add</span>
                   </span>
                 </h1>
                 Doctors
               </p>
-              <p className="subtitle">
-                Total Doctors: 31
-              </p>
+              <p className="subtitle">Total Doctors: {doctorCount}</p>
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
@@ -102,15 +127,13 @@ const Dashboard = () => {
             <div className="card-content">
               <p className="title">
                 <h1 className="overview-card-icon">
-                  <span className="icon is-right" style={{ color: '#F0483E' }}>
+                  <span className="icon is-right" style={{ color: "#F0483E" }}>
                     <span className="material-icons">backup</span>
                   </span>
                 </h1>
                 Backup
               </p>
-              <p className="subtitle">
-                Last Backup: 21-03-2022
-              </p>
+              <p className="subtitle">Last Backup: 21-03-2022</p>
             </div>
             <footer className="card-footer">
               <p className="card-footer-item">
@@ -129,55 +152,15 @@ const Dashboard = () => {
               </p>
             </footer>
           </div>
-
         </div>
       </div>
-
-      <div className="dashboard-stats">
-        <div className="tile is-ancestor">
-          <div className="tile">
-            <div className="tile is-parent is-vertical">
-              <div className="tile is-child">
-                {/* Appointment Table */}
-                <div className="card">
-                  <div className="card-content">
-                    <h3 className="is-size-4 is-grey-dark has-text-weight-bold">
-                      Upcoming Appointment
-                    </h3>
-                    <br />
-                    <div className="columns">
-                      <div className="column">Patient Name</div>
-                      <div className="column">Patient ID</div>
-                      <div className="column">Date</div>
-                      <div className="column">Reason</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="tile is-child">
-                {/* Appointment Card */}
-                <h3 className="is-size-4 is-grey-dark has-text-weight-bold">
-                  Ongoing Patient Appointments
-                </h3>
-                <div className="card is-4">
-                  <div className="card-content">
-                    <div className="columns">
-                      <div className="column">Patient Name</div>
-                      <div className="column">Patient ID</div>
-                      <div className="column">Date</div>
-                      <div className="column">Reason</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="mt-6">
+        <AppointmentsTable />
       </div>
 
       <style jsx>{`
         .dashboard-overview {
-          background: #EDF1F5;
+          background: #edf1f5;
           padding: 4rem;
           margin: -2rem;
           border-radius: 0 0 0.5rem 0.5rem;
@@ -198,7 +181,7 @@ const Dashboard = () => {
           margin-top: auto;
         }
 
-        .card-content { 
+        .card-content {
           padding-top: 3rem;
           flex-grow: 1;
           text-align: center;
@@ -220,11 +203,8 @@ const Dashboard = () => {
         }
         .overview-card-icon span {
           font-size: 4rem;
-          
         }
       `}</style>
-
-
     </div>
   );
 };
