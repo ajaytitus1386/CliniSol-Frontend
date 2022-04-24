@@ -7,7 +7,6 @@ const Appointment = () => {
     <div className="container">
       <CreateAppointment />
 
-      <AppointmentsTable />
     </div>
   );
 };
