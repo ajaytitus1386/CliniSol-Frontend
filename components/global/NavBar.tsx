@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 const NavBar = () => {
   return (
@@ -54,11 +55,11 @@ const NavBar = () => {
                   circle
                 </span>
               </div>
-              <div className="">{"Good Morning"}</div>
+              <div className="">{"Sri Ragav Neuro Clinic"}</div>
             </div>
             <div className="">
               {/* Date */}
-              <div className="heading">{"22nd April 2022"}</div>
+              <div className="heading">{moment().format("MMM Do YYYY")}</div>
             </div>
           </div>
         </div>
