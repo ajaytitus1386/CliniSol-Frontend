@@ -10,12 +10,10 @@ const CreateAppointment = () => {
   const [patientName, setPatientName] = useState("No Patient Selected");
   const [isPatientFound, setIsPatientFound] = useState(false);
   const [notifications, setNotifications] = useState<String[]>([]);
-
-  let doctorID = "";
-  let patientID = "";
-  let startTime = Date.now();
-  // In Mins
-  let duration = 0;
+  const [doctorID, setDoctorID] = useState("");
+  const [patientID, setPatientID] = useState("");
+  const [startTime, setStartTime] = useState(Date.now());
+  const [duration, setDuration] = useState(0);
 
   async function findDoctor() {
     let doctor = await getDoctorById(Number(doctorID));
@@ -73,7 +71,7 @@ const CreateAppointment = () => {
                     placeholder="Doctor ID"
                     required
                     onChange={(field) => {
-                      doctorID = field.target.value;
+                      setDoctorID(field.target.value)
                     }}
                   ></input>
                   <span className="icon is-small is-right">
@@ -128,7 +126,7 @@ const CreateAppointment = () => {
                     placeholder="Patient ID"
                     required
                     onChange={(field) => {
-                      patientID = field.target.value;
+                      setPatientID(field.target.value);
                     }}
                   ></input>
                   <span className="icon is-small is-right">
@@ -181,7 +179,7 @@ const CreateAppointment = () => {
                     type={"datetime-local"}
                     className="dob-picker"
                     onChange={(field) => {
-                      startTime = field.target.valueAsNumber;
+                      setStartTime(field.target.valueAsNumber);
                     }}
                   ></input>
                 </div>
@@ -202,7 +200,7 @@ const CreateAppointment = () => {
                     type={"number"}
                     className="dob-picker"
                     onChange={(field) => {
-                      duration = field.target.valueAsNumber;
+                      setDuration(field.target.valueAsNumber);
                     }}
                   ></input>
                 </div>
@@ -236,7 +234,7 @@ const CreateAppointment = () => {
             setTimeout(() => {
               // Remove Latest notif after set time
               setNotifications([...notifications].slice(0, -1));
-            }, 3000);
+            }, 15000);
             return (
               <div
                 className={`notification is-warning is-light notif-transition ${
