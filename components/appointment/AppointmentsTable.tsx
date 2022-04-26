@@ -1,5 +1,7 @@
+import { checkPrimeSync } from "crypto";
 import moment from "moment";
 import Link from "next/link";
+import { type } from "os";
 import React, { useEffect, useState } from "react";
 import { getAllAppointments } from "../../services/appointment/getAllApointments";
 import { getAppointmentsByDate } from "../../services/appointment/getAppointmentsByDate";
@@ -8,6 +10,7 @@ import AppointmentRow from "./AppointmentRow";
 
 function AppointmentsTable() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
   const [appointmentStartNum, setAppointmentStartNum] = useState(1);
   const appointmentsPerPageCount = 8;
   let appointmentsEndNum = appointmentStartNum + appointmentsPerPageCount - 1;
@@ -30,7 +33,7 @@ function AppointmentsTable() {
       });
 
       setAppointments(response);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async function fetchAllAppointments() {
@@ -38,11 +41,33 @@ function AppointmentsTable() {
       const response = await getAllAppointments();
 
       setAppointments(response);
-    } catch (error) {}
+    } catch (error) { }
+  }
+
+  async function fetchAllUpcomingAppointments() {
+    try {
+      const response = await getAllAppointments();
+
+      const upcoming = response.filter((item) => {
+        var date = new Date(item.startTime);
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        return date > yesterday;
+      });
+
+      upcoming.sort((a, b) => {
+        var dateA = new Date(a.startTime);
+        var dateB = new Date(b.startTime);
+        return (dateA > dateB) ? 1 : 0;
+      });
+
+      setUpcomingAppointments(upcoming);
+    } catch (error) { }
   }
 
   useEffect(() => {
     fetchAllAppointments();
+    fetchAllUpcomingAppointments();
   }, []);
 
   return (
@@ -50,7 +75,7 @@ function AppointmentsTable() {
       <div className="columns is-vcentered">
         <div className="column">
           <h1 className="title is-3">
-            Current Appointments ({appointments.length})
+            Upcoming Appointments ({upcomingAppointments.length})
           </h1>
           {/* <div className="control has-icons-right">
             <input
@@ -93,7 +118,7 @@ function AppointmentsTable() {
 
         <div className="divider"></div>
 
-        {appointments.map((appointment) => {
+        {upcomingAppointments.map((appointment) => {
           return (
             <AppointmentRow key={appointment.id} appointment={appointment} />
           );

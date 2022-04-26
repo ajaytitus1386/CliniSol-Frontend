@@ -53,9 +53,7 @@ const PatientRecords = () => {
     if (data.length != 0) {
       var apts = data.filter((apt: any) => {
         return apt.patient.id == pid;
-      })
-      console.log("hi nishal33");
-      console.log(apts);
+      });
 
       if (apts.length != 0) {
         setIsAppointmentFound(true);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Staff } from "../../types/staff";
 
 function StaffRow(staff: Staff) {
@@ -50,6 +50,8 @@ const ManageStaff = () => {
     )
 
     event.target.reset();
+    getStaffsFromDB();
+
     alert(res.statusText);
   }
 
@@ -75,7 +77,9 @@ const ManageStaff = () => {
     }
   }
 
-  getStaffsFromDB();
+  useEffect(() => {
+    getStaffsFromDB();
+  }, []);
 
   return (
     <div className="container box">

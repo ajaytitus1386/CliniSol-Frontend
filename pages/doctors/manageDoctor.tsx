@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Doctor } from "../../types/doctor";
 
 function DoctorRow(doctor: Doctor) {
@@ -53,6 +53,7 @@ const ManageDoctor = () => {
     )
 
     event.target.reset();
+    getDoctorsFromDB();
 
     alert(res.statusText);
   }
@@ -75,7 +76,9 @@ const ManageDoctor = () => {
     setDoctorsDataDB(data);
   }
 
-  getDoctorsFromDB();
+  useEffect(() => {
+    getDoctorsFromDB();
+  }, []);
 
   return (
     <div className="container box">

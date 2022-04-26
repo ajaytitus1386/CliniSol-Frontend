@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Patient } from "../../types/patient";
 
 function PatientRow(patient: Patient) {
@@ -58,6 +58,7 @@ const AddPatient = () => {
     )
 
     event.target.reset();
+    getPatientsFromDB();
 
     alert(res.statusText);
   }
@@ -74,10 +75,10 @@ const AddPatient = () => {
           method: 'GET'
         }
       )
-  
+
       const data = await res.json();
       data.sort((a: any, b: any) => a.id - b.id);
-  
+
       setAllPatientsDataDB(data);
     } catch (e) {
       console.log(e);
@@ -85,7 +86,9 @@ const AddPatient = () => {
 
   }
 
-  getPatientsFromDB();
+  useEffect(() => {
+    getPatientsFromDB();
+  }, []);
 
   return (
     <div className="container box">
